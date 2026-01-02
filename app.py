@@ -27,17 +27,23 @@ level = tutor["languages_with_levels"][language]
 st.info(f"Level: {level}")
 
 if st.button("Generate Course"):
-    with st.spinner("Generating course..."):
-        course = generate_course(tutor, language, level)
+    try:
+        with st.spinner("Generating course..."):
+            course = generate_course(tutor, language, level)
 
-    st.success(course["title"])
+        st.success(course["title"])
 
-    for module in course["modules"]:
-        st.header(module["module_title"])
-        for lesson in module["lessons"]:
-            st.subheader(lesson["lesson_title"])
-            st.write(lesson["content"])
+        for module in course["modules"]:
+            st.header(module["module_title"])
+            for lesson in module["lessons"]:
+                st.subheader(lesson["lesson_title"])
+                st.write(lesson["content"])
 
-            if st.button(f"🔊 Audio: {lesson['lesson_title']}"):
-                audio = generate_audio(lesson["content"])
-                st.audio(audio)
+                if st.button(f"🔊 Audio: {lesson['lesson_title']}"):
+                    audio = generate_audio(lesson["content"])
+                    st.audio(audio)
+
+    except Exception as e:
+        st.error("Course generation failed. Please click again.")
+        st.exception(e)
+

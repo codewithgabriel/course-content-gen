@@ -1,4 +1,3 @@
-import os
 import streamlit as st
 from transformers import pipeline
 
@@ -15,5 +14,9 @@ def load_generator():
 generator = load_generator()
 
 def generate_text(prompt: str) -> str:
-    result = generator(prompt, max_length=512)
-    return result[0]["generated_text"]
+    output = generator(
+        prompt,
+        max_new_tokens=256,
+        do_sample=False   # VERY IMPORTANT → deterministic
+    )
+    return output[0]["generated_text"]
