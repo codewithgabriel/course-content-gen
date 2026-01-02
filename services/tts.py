@@ -1,8 +1,9 @@
 from TTS.api import TTS
 import os
 import uuid
-
-tts = TTS(model_name="tts_models/multilingual/multi-dataset/your_tts")
+HF_TOKEN = os.getenv("HF_TOKEN")
+tts = TTS(
+    model_name="tts_models/multilingual/multi-dataset/your_tts")
 
 AUDIO_DIR = "audio"
 os.makedirs(AUDIO_DIR, exist_ok=True)
