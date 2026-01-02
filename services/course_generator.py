@@ -3,9 +3,7 @@ from services.llm import generate_text
 
 def generate_course(tutor, language, level):
     prompt = f"""
-You are a professional language tutor.
-
-Generate a structured course in JSON only.
+Generate a structured language course in JSON only.
 
 Language: {language}
 Level: {level}
@@ -31,7 +29,5 @@ STRICT JSON FORMAT:
 """
 
     raw = generate_text(prompt)
-    json_start = raw.find("{")
-    clean = raw[json_start:]
-
-    return json.loads(clean)
+    start = raw.find("{")
+    return json.loads(raw[start:])
