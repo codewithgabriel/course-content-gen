@@ -30,6 +30,7 @@ def generate_course(tutor, language, level):
       """
 
     raw = generate_text(prompt)
+    print(raw)
 
     return parse_course(raw)
 
